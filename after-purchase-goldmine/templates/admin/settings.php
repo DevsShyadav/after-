@@ -66,17 +66,18 @@ $apg_networks = array(
 						</div>
 						<div class="apg-field-row">
 							<div class="apg-field">
-								<label class="apg-label"><?php esc_html_e( 'Theme', 'after-purchase-goldmine' ); ?></label>
-								<select class="apg-input" name="general[theme]">
+								<label class="apg-label"><?php esc_html_e( 'Thank-you page theme', 'after-purchase-goldmine' ); ?></label>
+								<select class="apg-input apg-js-pv" data-pv="theme" name="general[theme]">
 									<option value="auto" <?php selected( $g['theme'], 'auto' ); ?>><?php esc_html_e( 'Auto (match device)', 'after-purchase-goldmine' ); ?></option>
 									<option value="light" <?php selected( $g['theme'], 'light' ); ?>><?php esc_html_e( 'Light', 'after-purchase-goldmine' ); ?></option>
 									<option value="dark" <?php selected( $g['theme'], 'dark' ); ?>><?php esc_html_e( 'Dark', 'after-purchase-goldmine' ); ?></option>
 								</select>
+								<p class="apg-help"><?php esc_html_e( 'Applies to the customer thank-you page. See the live preview below.', 'after-purchase-goldmine' ); ?></p>
 							</div>
 							<div class="apg-field">
 								<label class="apg-label"><?php esc_html_e( 'Accent color', 'after-purchase-goldmine' ); ?></label>
 								<div class="apg-colorpick">
-									<input type="color" name="general[accent]" value="<?php echo esc_attr( $g['accent'] ); ?>" />
+									<input type="color" class="apg-js-pv" data-pv="accent" name="general[accent]" value="<?php echo esc_attr( $g['accent'] ); ?>" />
 									<input type="text" class="apg-input apg-js-accent-text" value="<?php echo esc_attr( $g['accent'] ); ?>" />
 								</div>
 							</div>
@@ -84,17 +85,45 @@ $apg_networks = array(
 						<div class="apg-field-row">
 							<div class="apg-field">
 								<label class="apg-label"><?php esc_html_e( 'Card corner radius', 'after-purchase-goldmine' ); ?></label>
-								<input type="number" min="0" max="40" class="apg-input" name="general[card_radius]" value="<?php echo esc_attr( $g['card_radius'] ); ?>" />
+								<input type="number" min="0" max="40" class="apg-input apg-js-pv" data-pv="radius" name="general[card_radius]" value="<?php echo esc_attr( $g['card_radius'] ); ?>" />
 							</div>
 						</div>
 						<label class="apg-checkrow">
-							<input type="checkbox" name="general[glass]" <?php checked( $g['glass'] ); ?> />
+							<input type="checkbox" class="apg-js-pv" data-pv="glass" name="general[glass]" <?php checked( $g['glass'] ); ?> />
 							<span><?php esc_html_e( 'Enable glassmorphism blur effect', 'after-purchase-goldmine' ); ?></span>
 						</label>
 						<label class="apg-checkrow">
-							<input type="checkbox" name="general[animations]" <?php checked( $g['animations'] ); ?> />
+							<input type="checkbox" class="apg-js-pv" data-pv="anim" name="general[animations]" <?php checked( $g['animations'] ); ?> />
 							<span><?php esc_html_e( 'Enable entrance animations', 'after-purchase-goldmine' ); ?></span>
 						</label>
+					</div>
+
+					<div class="apg-panel">
+						<div class="apg-panel__head">
+							<h2 class="apg-panel__title"><?php esc_html_e( 'Live preview', 'after-purchase-goldmine' ); ?></h2>
+							<span class="apg-chip"><?php esc_html_e( 'Updates instantly', 'after-purchase-goldmine' ); ?></span>
+						</div>
+						<div class="apg-preview apg-preview--glass apg-preview--anim" id="apg-preview" data-apg-theme="<?php echo esc_attr( $g['theme'] ); ?>" style="--apg-pv-accent:<?php echo esc_attr( $g['accent'] ); ?>;--apg-pv-radius:<?php echo (int) $g['card_radius']; ?>px;">
+							<div class="apg-preview__eyebrow">
+								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.2l1-5.8L3.5 9.2l5.9-.9z"/></svg>
+								<?php esc_html_e( 'Just for you', 'after-purchase-goldmine' ); ?>
+							</div>
+							<div class="apg-preview__title" id="apg-preview-title"><?php echo esc_html( $g['title'] ); ?></div>
+							<div class="apg-preview__cards">
+								<div class="apg-preview__card">
+									<span class="apg-preview__pill"><?php esc_html_e( 'Exclusive one-time offer', 'after-purchase-goldmine' ); ?></span>
+									<div class="apg-preview__ctitle"><?php esc_html_e( 'Add premium gift wrap', 'after-purchase-goldmine' ); ?></div>
+									<div class="apg-preview__row">
+										<span class="apg-preview__price">$9.00</span>
+										<span class="apg-preview__btn"><?php esc_html_e( 'Add to my order', 'after-purchase-goldmine' ); ?></span>
+									</div>
+								</div>
+								<div class="apg-preview__card apg-preview__card--timer">
+									<div class="apg-preview__discount">15% OFF</div>
+									<div class="apg-preview__coupon">THANKS-A1B2C3</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</section>
 

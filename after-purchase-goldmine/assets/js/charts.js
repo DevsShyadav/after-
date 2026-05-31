@@ -36,7 +36,7 @@
 	}
 
 	function hexToRgba( hex, alpha ) {
-		hex = ( hex || '#ef4444' ).replace( '#', '' );
+		hex = ( hex || '#10b981' ).replace( '#', '' );
 		if ( hex.length === 3 ) {
 			hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
 		}
@@ -53,7 +53,7 @@
 			var ctx = s.ctx;
 			var data = opts.data || [];
 			var labels = opts.labels || [];
-			var color = opts.color || cssVar( '--apg-accent', '#ef4444' );
+			var color = opts.color || cssVar( '--apg-accent', '#10b981' );
 			var grid = cssVar( '--apg-grid', 'rgba(120,130,150,0.15)' );
 			var ink = cssVar( '--apg-muted', '#7a8699' );
 
@@ -144,7 +144,7 @@
 			var ctx = s.ctx;
 			var data = opts.data || [];
 			var labels = opts.labels || [];
-			var color = opts.color || cssVar( '--apg-accent', '#ef4444' );
+			var color = opts.color || cssVar( '--apg-accent', '#10b981' );
 			var grid = cssVar( '--apg-grid', 'rgba(120,130,150,0.15)' );
 			var ink = cssVar( '--apg-muted', '#7a8699' );
 

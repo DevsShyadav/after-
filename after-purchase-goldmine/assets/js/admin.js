@@ -27,6 +27,42 @@
 		return d.innerHTML;
 	}
 
+	function hexToRgbStr( hex ) {
+		hex = ( hex || '#10b981' ).replace( '#', '' );
+		if ( hex.length === 3 ) {
+			hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+		}
+		if ( ! /^[0-9a-f]{6}$/i.test( hex ) ) { return '16, 185, 129'; }
+		return parseInt( hex.substr( 0, 2 ), 16 ) + ', ' + parseInt( hex.substr( 2, 2 ), 16 ) + ', ' + parseInt( hex.substr( 4, 2 ), 16 );
+	}
+
+	function darkenHex( hex, amount ) {
+		hex = ( hex || '#10b981' ).replace( '#', '' );
+		if ( hex.length === 3 ) {
+			hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+		}
+		if ( ! /^[0-9a-f]{6}$/i.test( hex ) ) { return '#059669'; }
+		amount = amount == null ? 0.18 : amount;
+		function ch( i ) {
+			var v = Math.round( parseInt( hex.substr( i, 2 ), 16 ) * ( 1 - amount ) );
+			return ( '0' + Math.max( 0, v ).toString( 16 ) ).slice( -2 );
+		}
+		return '#' + ch( 0 ) + ch( 2 ) + ch( 4 );
+	}
+
+	/**
+	 * Apply an accent color to the whole admin app instantly.
+	 *
+	 * @param {string} hex Accent hex color.
+	 */
+	function applyAdminAccent( hex ) {
+		var app = $( '.apg-app' );
+		if ( ! app || ! /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test( hex ) ) { return; }
+		app.style.setProperty( '--apg-accent', hex );
+		app.style.setProperty( '--apg-accent-rgb', hexToRgbStr( hex ) );
+		app.style.setProperty( '--apg-accent-strong', darkenHex( hex, 0.18 ) );
+	}
+
 	function toast( message, kind ) {
 		var el = $( '#apg-toast' );
 		if ( ! el ) { return; }
@@ -208,7 +244,11 @@
 			if ( ! color || ! text ) { return; }
 			color.addEventListener( 'input', function () { text.value = color.value; } );
 			text.addEventListener( 'change', function () {
-				if ( /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test( text.value ) ) { color.value = text.value; }
+				if ( /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test( text.value ) ) {
+					color.value = text.value;
+					// Notify any listeners (live preview / accent apply).
+					color.dispatchEvent( new Event( 'input', { bubbles: true } ) );
+				}
 			} );
 		} );
 	}
@@ -542,6 +582,58 @@
 			} );
 		} );
 
+		// Live appearance preview.
+		var preview = $( '#apg-preview' );
+		var pvTitle = $( '#apg-preview-title' );
+		var titleInput = $( 'input[name="general[title]"]', form );
+
+		function pvText( raw ) {
+			var site = ( cfg.siteName || 'your store' );
+			return String( raw || '' ).replace( /\{site\}/g, site ).replace( /\{first_name\}/g, 'Alex' );
+		}
+
+		function updatePreview() {
+			if ( ! preview ) { return; }
+			$all( '.apg-js-pv', form ).forEach( function ( el ) {
+				var kind = el.getAttribute( 'data-pv' );
+				if ( kind === 'theme' ) {
+					preview.setAttribute( 'data-apg-theme', el.value );
+				} else if ( kind === 'accent' ) {
+					if ( /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test( el.value ) ) {
+						preview.style.setProperty( '--apg-pv-accent', el.value );
+						applyAdminAccent( el.value );
+					}
+				} else if ( kind === 'radius' ) {
+					preview.style.setProperty( '--apg-pv-radius', ( parseInt( el.value, 10 ) || 0 ) + 'px' );
+				} else if ( kind === 'glass' ) {
+					preview.classList.toggle( 'apg-preview--glass', el.checked );
+				} else if ( kind === 'anim' ) {
+					preview.classList.toggle( 'apg-preview--anim', el.checked );
+					if ( el.checked ) {
+						// Re-trigger the entrance animation.
+						$all( '.apg-preview__card', preview ).forEach( function ( c ) {
+							c.style.animation = 'none';
+							// eslint-disable-next-line no-unused-expressions
+							c.offsetHeight;
+							c.style.animation = '';
+						} );
+					}
+				}
+			} );
+			if ( pvTitle && titleInput ) { pvTitle.textContent = pvText( titleInput.value ); }
+		}
+
+		$all( '.apg-js-pv', form ).forEach( function ( el ) {
+			el.addEventListener( 'input', updatePreview );
+			el.addEventListener( 'change', updatePreview );
+		} );
+		if ( titleInput ) {
+			titleInput.addEventListener( 'input', function () {
+				if ( pvTitle ) { pvTitle.textContent = pvText( titleInput.value ); }
+			} );
+		}
+		updatePreview();
+
 		// Save.
 		$all( '.apg-js-save-settings' ).forEach( function ( btn ) {
 			btn.addEventListener( 'click', function () {
@@ -550,7 +642,11 @@
 				ajax( 'apg_save_settings', { payload: JSON.stringify( payload ) } )
 					.then( function ( res ) {
 						setLoading( btn, false );
-						toast( res.success ? ( res.data.message || i18n.saved ) : i18n.error, res.success ? 'success' : 'error' );
+						if ( res && res.success ) {
+							toast( ( res.data && res.data.message ) || i18n.saved );
+						} else {
+							toast( ( res && res.data && res.data.message ) || i18n.error, 'error' );
+						}
 					} )
 					.catch( function () { setLoading( btn, false ); toast( i18n.error, 'error' ); } );
 			} );

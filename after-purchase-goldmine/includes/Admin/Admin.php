@@ -194,6 +194,7 @@ final class Admin {
 				'nonce'     => wp_create_nonce( AjaxController::NONCE ),
 				'dashboardUrl' => admin_url( 'admin.php?page=' . self::SLUG ),
 				'currency'  => html_entity_decode( get_woocommerce_currency_symbol() ),
+				'siteName'  => get_bloginfo( 'name' ),
 				'i18n'      => array(
 					'saved'      => __( 'Saved', 'after-purchase-goldmine' ),
 					'saving'     => __( 'Saving…', 'after-purchase-goldmine' ),
@@ -212,10 +213,16 @@ final class Admin {
 	 * @return string
 	 */
 	private function inline_theme_css() {
-		$accent = Options::get( 'general', 'accent', '#ef4444' );
+		$accent = Options::get( 'general', 'accent', '#10b981' );
 		$rgb    = \APG\Support\Helpers::hex_to_rgb( $accent );
+		$strong = \APG\Support\Helpers::darken( $accent, 0.18 );
 
-		return sprintf( ':root{--apg-accent:%1$s;--apg-accent-rgb:%2$s;}', esc_attr( $accent ), esc_attr( $rgb ) );
+		return sprintf(
+			'.apg-app{--apg-accent:%1$s;--apg-accent-rgb:%2$s;--apg-accent-strong:%3$s;}',
+			esc_attr( $accent ),
+			esc_attr( $rgb ),
+			esc_attr( $strong )
+		);
 	}
 
 	/**

@@ -170,9 +170,35 @@ final class Helpers {
 		}
 
 		if ( 6 !== strlen( $hex ) || ! ctype_xdigit( $hex ) ) {
-			return '239, 68, 68';
+			return '16, 185, 129';
 		}
 
 		return hexdec( substr( $hex, 0, 2 ) ) . ', ' . hexdec( substr( $hex, 2, 2 ) ) . ', ' . hexdec( substr( $hex, 4, 2 ) );
+	}
+
+	/**
+	 * Return a darker shade of a hex color (for gradients/hover states).
+	 *
+	 * @param string $hex    Hex color (#rrggbb).
+	 * @param float  $amount Fraction to darken (0..1).
+	 * @return string Darkened hex color.
+	 */
+	public static function darken( $hex, $amount = 0.18 ) {
+		$hex = ltrim( (string) $hex, '#' );
+
+		if ( 3 === strlen( $hex ) ) {
+			$hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
+		}
+
+		if ( 6 !== strlen( $hex ) || ! ctype_xdigit( $hex ) ) {
+			return '#059669';
+		}
+
+		$amount = max( 0, min( 1, (float) $amount ) );
+		$r       = (int) round( hexdec( substr( $hex, 0, 2 ) ) * ( 1 - $amount ) );
+		$g       = (int) round( hexdec( substr( $hex, 2, 2 ) ) * ( 1 - $amount ) );
+		$b       = (int) round( hexdec( substr( $hex, 4, 2 ) ) * ( 1 - $amount ) );
+
+		return sprintf( '#%02x%02x%02x', $r, $g, $b );
 	}
 }

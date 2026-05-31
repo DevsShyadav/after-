@@ -37,7 +37,7 @@ final class Options {
 		return array(
 			'general'        => array(
 				'theme'                     => 'auto',
-				'accent'                    => '#ef4444',
+				'accent'                    => '#10b981',
 				'glass'                     => true,
 				'card_radius'               => 20,
 				'animations'                => true,
@@ -187,7 +187,7 @@ final class Options {
 		if ( isset( $data['general'] ) && is_array( $data['general'] ) ) {
 			$g                               = $data['general'];
 			$clean['general']['theme']       = in_array( $g['theme'] ?? '', array( 'auto', 'light', 'dark' ), true ) ? $g['theme'] : 'auto';
-			$clean['general']['accent']      = self::sanitize_hex( $g['accent'] ?? '#ef4444' );
+			$clean['general']['accent']      = self::sanitize_hex( $g['accent'] ?? '#10b981' );
 			$clean['general']['glass']       = ! empty( $g['glass'] );
 			$clean['general']['animations']  = ! empty( $g['animations'] );
 			$clean['general']['card_radius'] = max( 0, min( 40, (int) ( $g['card_radius'] ?? 20 ) ) );
@@ -284,7 +284,7 @@ final class Options {
 		$value = is_string( $value ) ? trim( $value ) : '';
 		$clean = sanitize_hex_color( $value );
 
-		return $clean ? $clean : '#ef4444';
+		return $clean ? $clean : '#10b981';
 	}
 
 	/**

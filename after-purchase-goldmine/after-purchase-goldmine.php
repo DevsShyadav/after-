@@ -3,7 +3,7 @@
  * Plugin Name:       After-Purchase Goldmine
  * Plugin URI:        https://example.com/after-purchase-goldmine
  * Description:       Turn the WooCommerce thank-you page into a revenue engine: one-click upsells, referral program, review requests, social sharing, and a next-purchase discount timer — wrapped in a premium SaaS UI.
- * Version:           1.0.1
+ * Version:           1.0.2
  * Requires at least: 6.2
  * Requires PHP:      7.4
  * Author:            Goldmine Labs
@@ -23,7 +23,7 @@ defined( 'ABSPATH' ) || exit;
 // ---------------------------------------------------------------------------
 // Plugin constants.
 // ---------------------------------------------------------------------------
-define( 'APG_VERSION', '1.0.1' );
+define( 'APG_VERSION', '1.0.2' );
 define( 'APG_PLUGIN_FILE', __FILE__ );
 define( 'APG_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'APG_PLUGIN_URL', plugin_dir_url( __FILE__ ) );

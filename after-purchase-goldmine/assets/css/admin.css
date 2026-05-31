@@ -9,20 +9,20 @@
 .apg-app .notice { display: none; }
 
 .apg-app {
-	--apg-accent: #ef4444;
-	--apg-accent-rgb: 239, 68, 68;
-	--apg-accent-strong: #dc2626;
-	--apg-bg: #fcf7f7;
+	--apg-accent: #10b981;
+	--apg-accent-rgb: 16, 185, 129;
+	--apg-accent-strong: #059669;
+	--apg-bg: #f4faf7;
 	--apg-surface: #ffffff;
-	--apg-surface-2: #fdf4f4;
-	--apg-border: #f2e6e6;
-	--apg-text: #1b1417;
-	--apg-muted: #8a7b7e;
-	--apg-grid: rgba(239, 68, 68, 0.10);
+	--apg-surface-2: #f1faf6;
+	--apg-border: #e3f0ea;
+	--apg-text: #0f1f1a;
+	--apg-muted: #6c8079;
+	--apg-grid: rgba(16, 185, 129, 0.12);
 	--apg-topbar: rgba(255, 255, 255, 0.85);
-	--apg-shadow: 0 1px 2px rgba(40, 16, 16, 0.04), 0 14px 34px -18px rgba(239, 68, 68, 0.20);
-	--apg-danger: #dc2626;
-	--apg-green: #16a34a;
+	--apg-shadow: 0 1px 2px rgba(6, 60, 44, 0.04), 0 14px 34px -18px rgba(16, 185, 129, 0.22);
+	--apg-danger: #e5484d;
+	--apg-green: #059669;
 	--apg-radius: 16px;
 
 	box-sizing: border-box;
@@ -40,19 +40,7 @@
 .apg-app *::before,
 .apg-app *::after { box-sizing: border-box; }
 
-@media (prefers-color-scheme: dark) {
-	.apg-app {
-		--apg-bg: #100a0b;
-		--apg-surface: #181012;
-		--apg-surface-2: #1f1416;
-		--apg-border: #2e2023;
-		--apg-text: #f6eef0;
-		--apg-muted: #a89498;
-		--apg-grid: rgba(239, 68, 68, 0.12);
-		--apg-topbar: rgba(24, 16, 18, 0.82);
-		--apg-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 18px 40px -20px rgba(0, 0, 0, 0.7);
-	}
-}
+/* Admin intentionally uses a single, polished white + green theme. */
 
 /* Top bar */
 .apg-topbar {
@@ -65,7 +53,7 @@
 	backdrop-filter: saturate(180%) blur(12px);
 	-webkit-backdrop-filter: saturate(180%) blur(12px);
 	border-bottom: 1px solid var(--apg-border);
-	box-shadow: 0 1px 0 rgba(239, 68, 68, 0.04);
+	box-shadow: 0 1px 0 rgba(16, 185, 129, 0.05);
 	position: sticky;
 	top: 32px;
 	z-index: 50;
@@ -200,7 +188,7 @@
 
 .apg-stat:hover {
 	transform: translateY(-2px);
-	box-shadow: 0 1px 2px rgba(40, 16, 16, 0.05), 0 22px 44px -22px rgba(239, 68, 68, 0.32);
+	box-shadow: 0 1px 2px rgba(6, 60, 44, 0.05), 0 22px 44px -22px rgba(16, 185, 129, 0.32);
 }
 
 .apg-stat__icon {
@@ -652,3 +640,136 @@ body.apg-modal-open { overflow: hidden; }
 @keyframes apg-pop { from { opacity: 0; transform: translateY(-10px) scale(0.98); } to { opacity: 1; transform: none; } }
 @keyframes apg-fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @keyframes apg-toast-in { from { opacity: 0; transform: translate(-50%, 10px); } to { opacity: 1; transform: translate(-50%, 0); } }
+
+
+/* ---------------------------------------------------------------------
+ * Live appearance preview (settings page)
+ * ------------------------------------------------------------------- */
+.apg-preview {
+	--apg-pv-accent: #10b981;
+	--apg-pv-radius: 20px;
+	--apg-pv-bg: #f4faf7;
+	--apg-pv-card: #ffffff;
+	--apg-pv-border: rgba(16, 120, 90, 0.12);
+	--apg-pv-text: #0f1f1a;
+	--apg-pv-muted: #67807a;
+	border-radius: 18px;
+	padding: 28px 24px;
+	background:
+		radial-gradient(900px 240px at 50% -40%, rgba(16, 185, 129, 0.10), transparent 70%),
+		var(--apg-pv-bg);
+	border: 1px solid var(--apg-border);
+	transition: background 0.3s ease, color 0.3s ease;
+	color: var(--apg-pv-text);
+	overflow: hidden;
+}
+
+.apg-preview[data-apg-theme="dark"] {
+	--apg-pv-bg: #0b1020;
+	--apg-pv-card: rgba(30, 41, 59, 0.72);
+	--apg-pv-border: rgba(148, 163, 184, 0.18);
+	--apg-pv-text: #f8fafc;
+	--apg-pv-muted: #94a3b8;
+}
+
+.apg-preview__eyebrow {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 6px 14px;
+	border-radius: 999px;
+	font-size: 11.5px;
+	font-weight: 700;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--apg-pv-accent);
+	background: color-mix(in srgb, var(--apg-pv-accent) 14%, transparent);
+}
+
+.apg-preview__eyebrow svg { width: 13px; height: 13px; }
+
+.apg-preview__title {
+	text-align: center;
+	font-size: 22px;
+	font-weight: 800;
+	letter-spacing: -0.02em;
+	margin: 14px 0 20px;
+	color: var(--apg-pv-text);
+}
+
+.apg-preview__cards {
+	display: grid;
+	grid-template-columns: 1.4fr 1fr;
+	gap: 16px;
+}
+
+@media (max-width: 640px) { .apg-preview__cards { grid-template-columns: 1fr; } }
+
+.apg-preview__card {
+	position: relative;
+	background: var(--apg-pv-card);
+	border: 1px solid var(--apg-pv-border);
+	border-radius: var(--apg-pv-radius);
+	padding: 20px;
+	box-shadow: 0 18px 40px -26px rgba(6, 95, 70, 0.4);
+	overflow: hidden;
+}
+
+.apg-preview__card::before {
+	content: "";
+	position: absolute;
+	inset: 0 0 auto 0;
+	height: 4px;
+	background: linear-gradient(90deg, var(--apg-pv-accent), color-mix(in srgb, var(--apg-pv-accent) 35%, transparent));
+}
+
+.apg-preview--glass[data-apg-theme="dark"] .apg-preview__card {
+	backdrop-filter: saturate(140%) blur(10px);
+	-webkit-backdrop-filter: saturate(140%) blur(10px);
+}
+
+.apg-preview--anim .apg-preview__card { animation: apg-rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.apg-preview--anim .apg-preview__card--timer { animation-delay: 0.08s; }
+
+.apg-preview__pill {
+	display: inline-block;
+	font-size: 10.5px;
+	font-weight: 700;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: var(--apg-pv-accent);
+	background: color-mix(in srgb, var(--apg-pv-accent) 14%, transparent);
+	padding: 4px 10px;
+	border-radius: 999px;
+	margin-bottom: 12px;
+}
+
+.apg-preview__ctitle { font-size: 17px; font-weight: 700; color: var(--apg-pv-text); margin-bottom: 16px; }
+
+.apg-preview__row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.apg-preview__price { font-size: 22px; font-weight: 800; color: var(--apg-pv-text); }
+
+.apg-preview__btn {
+	color: #fff;
+	font-weight: 700;
+	font-size: 13px;
+	padding: 10px 16px;
+	border-radius: 10px;
+	background: linear-gradient(135deg, var(--apg-pv-accent), color-mix(in srgb, var(--apg-pv-accent) 70%, #000));
+}
+
+.apg-preview__card--timer {
+	background: linear-gradient(135deg, var(--apg-pv-accent), color-mix(in srgb, var(--apg-pv-accent) 65%, #000));
+	color: #fff;
+	border-color: transparent;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 12px;
+	text-align: center;
+}
+
+.apg-preview__card--timer::before { display: none; }
+.apg-preview__discount { font-size: 26px; font-weight: 900; background: #fff; color: color-mix(in srgb, var(--apg-pv-accent) 80%, #000); padding: 10px 16px; border-radius: 12px; }
+.apg-preview__coupon { letter-spacing: 0.12em; font-weight: 700; border: 2px dashed rgba(255, 255, 255, 0.5); padding: 8px 14px; border-radius: 8px; }

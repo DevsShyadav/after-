@@ -6,7 +6,7 @@ Tested up to: 6.7
 Requires PHP: 7.4
 WC requires at least: 6.0
 WC tested up to: 9.4
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -83,18 +83,25 @@ No. Assets load only on the thank-you page (frontend) and on plugin admin screen
 
 == Changelog ==
 
+= 1.0.2 =
+* New premium white + green theme across the admin and thank-you page.
+* Settings: added a live appearance preview that updates instantly; changing the accent color now recolors the whole admin in real time.
+* Fixed: the "Glassmorphism" and "Entrance animations" toggles now actually take effect on the thank-you page (previously cosmetic only).
+* Hardened the accent/theme CSS injection so custom colors always apply reliably.
+* Admin now uses a consistent white theme instead of following the OS dark mode.
+* Existing installs on a previous default accent are migrated to green automatically.
+
 = 1.0.1 =
-* New premium white + light-red UI theme across the admin and thank-you page.
+* Premium UI theme refresh.
 * Fixed: the Welcome/onboarding screen could show "Sorry, you are not allowed to access this page" — the hidden page is now kept accessible and hidden via CSS instead of remove_submenu_page().
-* Existing installs using the default accent are migrated to the new red automatically.
 
 = 1.0.0 =
 * Initial release: one-click upsell, discount timer, referral program, review request, social share, analytics dashboard, onboarding wizard, HPOS support.
 
 == Upgrade Notice ==
 
-= 1.0.1 =
-Refreshed premium UI and an onboarding access fix. Safe in-place upgrade.
+= 1.0.2 =
+White + green premium UI, live settings preview, and working glass/animation toggles. Safe in-place upgrade.
 
 = 1.0.0 =
 First public release.

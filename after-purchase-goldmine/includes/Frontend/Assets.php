@@ -133,17 +133,17 @@ final class Assets {
 	 * @return string
 	 */
 	private function inline_theme_css() {
-		$accent = Options::get( 'general', 'accent', '#ef4444' );
+		$accent = Options::get( 'general', 'accent', '#10b981' );
 		$radius = (int) Options::get( 'general', 'card_radius', 20 );
-		$glass  = Options::get( 'general', 'glass', true ) ? '1' : '0';
 		$rgb    = Helpers::hex_to_rgb( $accent );
+		$strong = Helpers::darken( $accent, 0.18 );
 
 		return sprintf(
-			':root{--apg-accent:%1$s;--apg-accent-rgb:%2$s;--apg-radius:%3$dpx;--apg-glass:%4$s;}',
+			'.apg-goldmine{--apg-accent:%1$s;--apg-accent-rgb:%2$s;--apg-accent-strong:%3$s;--apg-radius:%4$dpx;}',
 			esc_attr( $accent ),
 			esc_attr( $rgb ),
-			$radius,
-			esc_attr( $glass )
+			esc_attr( $strong ),
+			$radius
 		);
 	}
 }

@@ -10,8 +10,16 @@
  */
 
 defined( 'ABSPATH' ) || exit;
+
+$apg_classes = array( 'apg-goldmine' );
+if ( \APG\Support\Options::get( 'general', 'glass', true ) ) {
+	$apg_classes[] = 'apg-goldmine--glass';
+}
+if ( \APG\Support\Options::get( 'general', 'animations', true ) ) {
+	$apg_classes[] = 'apg-goldmine--anim';
+}
 ?>
-<section class="apg-goldmine" data-apg-theme="<?php echo esc_attr( \APG\Support\Options::get( 'general', 'theme', 'auto' ) ); ?>">
+<section class="<?php echo esc_attr( implode( ' ', $apg_classes ) ); ?>" data-apg-theme="<?php echo esc_attr( \APG\Support\Options::get( 'general', 'theme', 'auto' ) ); ?>">
 	<div class="apg-goldmine__inner">
 		<?php if ( '' !== trim( (string) $title ) ) : ?>
 			<header class="apg-goldmine__header">

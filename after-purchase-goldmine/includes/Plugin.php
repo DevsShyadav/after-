@@ -147,11 +147,12 @@ final class Plugin {
 
 		Install\Schema::install();
 
-		// 1.0.1: migrate the legacy indigo accent to the new red default,
-		// but only when the merchant has not picked their own color.
-		$settings = get_option( 'apg_settings' );
-		if ( is_array( $settings ) && isset( $settings['general']['accent'] ) && '#6366f1' === $settings['general']['accent'] ) {
-			$settings['general']['accent'] = '#ef4444';
+		// Migrate a previous default accent to the current green default,
+		// but only when the merchant has not chosen their own color.
+		$legacy_defaults = array( '#6366f1', '#ef4444' );
+		$settings        = get_option( 'apg_settings' );
+		if ( is_array( $settings ) && isset( $settings['general']['accent'] ) && in_array( strtolower( $settings['general']['accent'] ), $legacy_defaults, true ) ) {
+			$settings['general']['accent'] = '#10b981';
 			update_option( 'apg_settings', $settings );
 			Support\Options::flush_cache();
 		}
