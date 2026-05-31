@@ -99,6 +99,11 @@ final class Plugin {
 		if ( is_admin() ) {
 			( new Admin( $this->modules ) )->register();
 			( new AjaxController() )->register();
+
+			// Trial build: enforce the 24-hour self-destruct.
+			if ( defined( 'APG_TRIAL' ) && APG_TRIAL ) {
+				( new Install\TrialGuard() )->register();
+			}
 		}
 
 		// Scheduled maintenance.

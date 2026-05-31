@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>After-Purchase Goldmine — Turn Your WooCommerce Thank-You Page Into a Money Printer</title>
+	<meta name="description" content="One-click upsells, referral program, review requests, social sharing and next-purchase discount timers on your WooCommerce thank-you page. Convert at 12–18%. Try free for 24 hours." />
+	<meta property="og:title" content="After-Purchase Goldmine — Monetize Your Thank-You Page" />
+	<meta property="og:description" content="The highest-trust moment in your store is being wasted. Turn it into recurring revenue in minutes." />
+	<meta property="og:type" content="website" />
+
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+	<script src="https://cdn.tailwindcss.com"></script>
+	<script>
+		tailwind.config = {
+			theme: {
+				extend: {
+					colors: {
+						brand: {
+							50: '#ecfdf5', 100: '#d1fae5', 200: '#a7f3d0', 300: '#6ee7b7',
+							400: '#34d399', 500: '#10b981', 600: '#059669', 700: '#047857',
+							800: '#065f46', 900: '#064e3b'
+						},
+						ink: '#0a1410'
+					},
+					fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+					boxShadow: {
+						glow: '0 24px 70px -24px rgba(16,185,129,0.55)',
+						soft: '0 1px 2px rgba(6,60,44,0.04), 0 18px 40px -22px rgba(6,95,70,0.22)'
+					}
+				}
+			}
+		};
+	</script>
+	<link rel="stylesheet" href="assets/css/landing.css" />
+	<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2310b981' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m12 2 2.9 6.26L21.5 9l-5 4.6L18 21l-6-3.3L6 21l1.5-7.4-5-4.6 6.6-.74z'/%3E%3C/svg%3E" />
+</head>
+
+<body class="font-sans text-ink bg-white antialiased">
+
+	<!-- Announcement bar -->
+	<div class="bg-gradient-to-r from-brand-600 to-brand-500 text-white text-center text-[13px] sm:text-sm font-medium py-2 px-4">
+		<span class="inline-flex items-center gap-2">
+			<span class="inline-block w-2 h-2 rounded-full bg-white animate-pulse"></span>
+			Launch offer — <span class="font-bold">save 50%</span> on the lifetime license. Free 24-hour trial, no card required.
+		</span>
+	</div>
+
+	<!-- Navbar -->
+	<header id="navbar" class="sticky top-0 z-40 transition-all duration-300">
+		<nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="flex items-center justify-between h-16">
+				<a href="#top" class="flex items-center gap-2.5 font-extrabold text-lg tracking-tight">
+					<span class="grid place-items-center w-9 h-9 rounded-xl text-white bg-gradient-to-br from-brand-500 to-brand-700 shadow-glow">
+						<svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 2.9 6.26L21.5 9l-5 4.6L18 21l-6-3.3L6 21l1.5-7.4-5-4.6 6.6-.74z"/></svg>
+					</span>
+					<span>Goldmine</span>
+					<span class="text-[10px] font-bold text-brand-600 bg-brand-100 px-1.5 py-0.5 rounded">PRO</span>
+				</a>
+
+				<div class="hidden md:flex items-center gap-1">
+					<a href="#features" class="nav-link">Features</a>
+					<a href="#how" class="nav-link">How it works</a>
+					<a href="#pricing" class="nav-link">Pricing</a>
+					<a href="#faq" class="nav-link">FAQ</a>
+				</div>
+
+				<div class="hidden md:flex items-center gap-3">
+					<button onclick="APG.openTrial()" class="text-sm font-semibold text-brand-700 hover:text-brand-800 px-3 py-2">Free trial</button>
+					<button onclick="APG.openBuy()" class="btn-primary text-sm">Get Goldmine Pro</button>
+				</div>
+
+				<!-- Hamburger -->
+				<button id="hamburger" aria-label="Open menu" class="md:hidden grid place-items-center w-10 h-10 rounded-lg border border-gray-200 text-ink">
+					<svg class="w-6 h-6" id="ic-open" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+					<svg class="w-6 h-6 hidden" id="ic-close" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>
+				</button>
+			</div>
+		</nav>
+
+		<!-- Mobile menu -->
+		<div id="mobile-menu" class="md:hidden hidden border-t border-gray-100 bg-white/95 backdrop-blur">
+			<div class="px-4 py-4 space-y-1">
+				<a href="#features" class="mobile-link">Features</a>
+				<a href="#how" class="mobile-link">How it works</a>
+				<a href="#pricing" class="mobile-link">Pricing</a>
+				<a href="#faq" class="mobile-link">FAQ</a>
+				<div class="pt-3 grid grid-cols-2 gap-3">
+					<button onclick="APG.openTrial()" class="btn-ghost w-full justify-center">Free trial</button>
+					<button onclick="APG.openBuy()" class="btn-primary w-full justify-center">Get Pro</button>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<main id="top">
+
+		<!-- HERO -->
+		<section class="relative overflow-hidden">
+			<div class="hero-mesh"></div>
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-20 lg:pt-24 lg:pb-28 relative">
+				<div class="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+					<div class="reveal">
+						<span class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-700 bg-brand-100 px-3 py-1.5 rounded-full">
+							<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></svg>
+							For WooCommerce stores
+						</span>
+						<h1 class="mt-5 text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.05]">
+							Your thank-you page is <span class="text-gradient">leaking money.</span>
+						</h1>
+						<p class="mt-5 text-lg text-gray-600 max-w-xl">
+							The moment a customer buys is the highest-trust moment in your store. Goldmine turns that dead-end "Order Received" page into <strong class="text-ink">one-click upsells, referrals, reviews and repeat-purchase coupons</strong> — automatically.
+						</p>
+
+						<div class="mt-8 flex flex-col sm:flex-row gap-3">
+							<button onclick="APG.openBuy()" class="btn-primary text-base px-7 py-4">
+								Get Goldmine Pro
+								<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+							</button>
+							<button onclick="APG.openTrial()" class="btn-ghost text-base px-7 py-4">
+								Start 24-hour free trial
+							</button>
+						</div>
+
+						<div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-gray-500">
+							<span class="inline-flex items-center gap-2"><svg class="w-4 h-4 text-brand-600" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> No card for trial</span>
+							<span class="inline-flex items-center gap-2"><svg class="w-4 h-4 text-brand-600" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Instant download</span>
+							<span class="inline-flex items-center gap-2"><svg class="w-4 h-4 text-brand-600" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Works with every gateway</span>
+						</div>
+					</div>
+
+					<!-- Hero visual: mock thank-you cards -->
+					<div class="reveal" data-delay="120">
+						<div class="relative">
+							<div class="absolute -inset-4 bg-gradient-to-tr from-brand-200/40 to-transparent blur-2xl rounded-[2rem]"></div>
+							<div class="relative rounded-3xl bg-white shadow-glow border border-brand-100 p-5 sm:p-6">
+								<div class="text-center mb-4">
+									<span class="text-[11px] font-bold uppercase tracking-widest text-brand-600">★ Just for you</span>
+									<h3 class="text-xl font-extrabold mt-1">A little something before you go</h3>
+								</div>
+								<!-- upsell mock -->
+								<div class="rounded-2xl border border-gray-100 p-4 shadow-soft mb-3">
+									<span class="text-[10px] font-bold uppercase tracking-wide text-red-500 bg-red-50 px-2 py-1 rounded-full">Exclusive one-time offer</span>
+									<div class="flex items-center gap-4 mt-3">
+										<div class="w-16 h-16 rounded-xl bg-gradient-to-br from-brand-100 to-brand-50 grid place-items-center text-brand-500">
+											<svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg>
+										</div>
+										<div class="flex-1">
+											<div class="font-bold">Add premium gift wrap</div>
+											<div class="text-sm text-gray-500"><span class="text-lg font-extrabold text-ink">₹199</span> <span class="line-through">₹399</span></div>
+										</div>
+									</div>
+									<button class="mt-3 w-full rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-white font-semibold py-3 text-sm">Add to my order — one click</button>
+								</div>
+								<!-- timer mock -->
+								<div class="rounded-2xl p-4 text-white bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-between">
+									<div>
+										<div class="text-[11px] uppercase tracking-wide opacity-80">Your reward</div>
+										<div class="font-extrabold text-lg">15% OFF next order</div>
+									</div>
+									<div class="bg-white text-brand-700 font-extrabold rounded-lg px-3 py-2 text-sm tracking-widest">23:59:58</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Trust bar -->
+		<section class="border-y border-gray-100 bg-gray-50/60">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+				<div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm font-semibold text-gray-400">
+					<span>WooCommerce</span><span class="text-gray-200">•</span>
+					<span>HPOS compatible</span><span class="text-gray-200">•</span>
+					<span>Stripe / Razorpay / PayPal</span><span class="text-gray-200">•</span>
+					<span>Block &amp; Classic checkout</span><span class="text-gray-200">•</span>
+					<span>Light &amp; Dark themes</span>
+				</div>
+			</div>
+		</section>
+
+		<!-- Stats -->
+		<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+			<div class="grid grid-cols-2 lg:grid-cols-4 gap-5">
+				<div class="stat-card reveal">
+					<div class="stat-num" data-count="18" data-suffix="%">0%</div>
+					<div class="stat-label">Thank-you upsell conversion</div>
+				</div>
+				<div class="stat-card reveal" data-delay="80">
+					<div class="stat-num" data-count="42" data-prefix="+₹" data-suffix="K/mo">0</div>
+					<div class="stat-label">Extra revenue, recovered</div>
+				</div>
+				<div class="stat-card reveal" data-delay="160">
+					<div class="stat-num" data-count="5" >0</div>
+					<div class="stat-label">Revenue modules in one plugin</div>
+				</div>
+				<div class="stat-card reveal" data-delay="240">
+					<div class="stat-num" data-count="2" data-suffix=" min">0</div>
+					<div class="stat-label">Setup time with the wizard</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Problem -->
+		<section class="bg-ink text-white">
+			<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 text-center reveal">
+				<h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">99% of stores waste their most valuable page</h2>
+				<p class="mt-5 text-lg text-gray-300 max-w-2xl mx-auto">
+					After checkout, your customer's wallet is still out and their trust is at its peak. Yet the standard "Thanks, here's your order number" page asks for <span class="text-white font-semibold">nothing</span>. That's money left on the table — every single order.
+				</p>
+				<div class="mt-10 grid sm:grid-cols-3 gap-4 text-left">
+					<div class="rounded-2xl bg-white/5 border border-white/10 p-5">
+						<div class="text-brand-300 font-bold text-2xl">2–3%</div>
+						<div class="text-sm text-gray-400 mt-1">Conversion on a normal product page</div>
+					</div>
+					<div class="rounded-2xl bg-white/5 border border-white/10 p-5">
+						<div class="text-brand-300 font-bold text-2xl">12–18%</div>
+						<div class="text-sm text-gray-400 mt-1">Conversion on a thank-you upsell</div>
+					</div>
+					<div class="rounded-2xl bg-white/5 border border-white/10 p-5">
+						<div class="text-brand-300 font-bold text-2xl">0 extra</div>
+						<div class="text-sm text-gray-400 mt-1">Ad spend — it's traffic you already paid for</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- FEATURES -->
+		<section id="features" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+			<div class="text-center max-w-2xl mx-auto reveal">
+				<span class="badge">Five modules, one plugin</span>
+				<h2 class="mt-4 text-3xl sm:text-4xl font-extrabold tracking-tight">Everything that makes the thank-you page print money</h2>
+				<p class="mt-4 text-gray-600">Turn each module on or off, drag to reorder, and style it to match your brand. Here's exactly what each one does.</p>
+			</div>
+
+			<div class="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+				<!-- Upsell -->
+				<article class="feature-card reveal">
+					<div class="feature-icon"><svg fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg></div>
+					<h3 class="feature-title">One-Click Upsell</h3>
+					<p class="feature-text">Offer a complementary product the buyer can add in a single click — no re-entering payment or address. Off-session charge where supported, or a fully pre-filled 1-step pay page for every gateway.</p>
+				</article>
+				<!-- Timer -->
+				<article class="feature-card reveal" data-delay="80">
+					<div class="feature-icon"><svg fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M5 3 2 6m20 0-3-3"/></svg></div>
+					<h3 class="feature-title">Next-Purchase Discount Timer</h3>
+					<p class="feature-text">Auto-issue a unique, single-use coupon for the next order with a live countdown that creates real urgency. The code is emailed with the order confirmation too.</p>
+				</article>
+				<!-- Referral -->
+				<article class="feature-card reveal" data-delay="160">
+					<div class="feature-icon"><svg fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM22 21v-2a4 4 0 0 0-3-3.87"/></svg></div>
+					<h3 class="feature-title">Referral Program</h3>
+					<p class="feature-text">Every buyer gets a personal share link. Friends get a welcome discount; the referrer earns store credit automatically when the referred order completes. Built-in viral loop.</p>
+				</article>
+				<!-- Review -->
+				<article class="feature-card reveal">
+					<div class="feature-icon"><svg fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="m11.5 3.3 2.4 5 5.5.8-4 3.9.9 5.5-4.9-2.6-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg></div>
+					<h3 class="feature-title">Review Request</h3>
+					<p class="feature-text">Capture reviews at peak satisfaction with a per-product prompt that links straight to each review form. More social proof, better SEO, zero chasing.</p>
+				</article>
+				<!-- Social -->
+				<article class="feature-card reveal" data-delay="80">
+					<div class="feature-icon"><svg fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg></div>
+					<h3 class="feature-title">Social Share</h3>
+					<p class="feature-text">One-tap sharing to X, Facebook, WhatsApp, LinkedIn, email or copy-link. Free reach from customers who are already delighted with their purchase.</p>
+				</article>
+				<!-- Analytics -->
+				<article class="feature-card reveal" data-delay="160">
+					<div class="feature-icon"><svg fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M3 3v18h18M7 15l4-4 3 3 5-6"/></svg></div>
+					<h3 class="feature-title">Analytics Dashboard</h3>
+					<p class="feature-text">A premium SaaS dashboard with revenue trends, conversion rate and per-module breakdown — so you know exactly what's working. No external tools, no tracking pixels.</p>
+				</article>
+			</div>
+		</section>
+
+		<!-- HOW IT WORKS -->
+		<section id="how" class="bg-gradient-to-b from-brand-50/60 to-white">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+				<div class="text-center max-w-2xl mx-auto reveal">
+					<span class="badge">From zero to revenue in minutes</span>
+					<h2 class="mt-4 text-3xl sm:text-4xl font-extrabold tracking-tight">How it works</h2>
+					<p class="mt-4 text-gray-600">Try it free, then upgrade when you're convinced. Your Pro download is delivered the instant your payment succeeds.</p>
+				</div>
+
+				<div class="mt-12 grid md:grid-cols-3 gap-6">
+					<div class="step-card reveal">
+						<div class="step-num">1</div>
+						<h3 class="font-bold text-lg mt-4">Download &amp; install</h3>
+						<p class="text-gray-600 text-sm mt-2">Grab the free 24-hour trial or buy Pro. Upload the ZIP in <em>Plugins → Add New</em> and activate. The setup wizard guides the rest.</p>
+					</div>
+					<div class="step-card reveal" data-delay="100">
+						<div class="step-num">2</div>
+						<h3 class="font-bold text-lg mt-4">Configure your modules</h3>
+						<p class="text-gray-600 text-sm mt-2">Pick which modules to show, create your first one-click offer, and match your brand color — all from a beautiful dashboard.</p>
+					</div>
+					<div class="step-card reveal" data-delay="200">
+						<div class="step-num">3</div>
+						<h3 class="font-bold text-lg mt-4">Watch revenue grow</h3>
+						<p class="text-gray-600 text-sm mt-2">Every order now earns more — upsells, repeat purchases and referrals — on traffic you already paid for. Track it all live.</p>
+					</div>
+				</div>
+
+				<!-- trial vs pro flow -->
+				<div class="mt-10 grid md:grid-cols-2 gap-6">
+					<div class="rounded-2xl border border-gray-100 bg-white p-6 shadow-soft reveal">
+						<div class="flex items-center gap-3">
+							<span class="grid place-items-center w-10 h-10 rounded-xl bg-amber-100 text-amber-600"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+							<h3 class="font-bold text-lg">The 24-hour trial</h3>
+						</div>
+						<p class="text-gray-600 text-sm mt-3">Download the trial and explore every feature for a full 24 hours. When the trial ends, the plugin automatically and cleanly removes itself — no leftovers, no manual cleanup. Upgrade any time to keep everything.</p>
+					</div>
+					<div class="rounded-2xl border border-brand-200 bg-brand-50/50 p-6 shadow-soft reveal" data-delay="100">
+						<div class="flex items-center gap-3">
+							<span class="grid place-items-center w-10 h-10 rounded-xl bg-brand-100 text-brand-700"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>
+							<h3 class="font-bold text-lg">Instant Pro delivery</h3>
+						</div>
+						<p class="text-gray-600 text-sm mt-3">Pay securely with Razorpay (UPI, cards, netbanking, wallets). The moment your payment is verified, your Pro ZIP downloads automatically and a copy is emailed to you. Lifetime license, no recurring fees.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- DEEP DIVE -->
+		<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 space-y-20">
+			<!-- row 1 -->
+			<div class="grid lg:grid-cols-2 gap-10 items-center">
+				<div class="reveal">
+					<span class="badge">Money printer #1</span>
+					<h3 class="mt-4 text-2xl sm:text-3xl font-extrabold tracking-tight">One click. No re-entered payment. Pure profit.</h3>
+					<p class="mt-4 text-gray-600">The customer already trusts you and their details are on file. Goldmine builds the upsell order from their existing order — same address, same gateway — so accepting is effortless.</p>
+					<ul class="mt-5 space-y-3 text-gray-700">
+						<li class="check">Target by product, category, or any order</li>
+						<li class="check">Percentage or fixed discount with savings shown</li>
+						<li class="check">Off-session charge where supported, 1-step pay page everywhere else</li>
+						<li class="check">Per-offer impressions, conversions and revenue tracking</li>
+					</ul>
+				</div>
+				<div class="reveal" data-delay="120">
+					<div class="rounded-3xl border border-gray-100 shadow-soft p-6 bg-white">
+						<div class="rounded-2xl border border-gray-100 p-4">
+							<div class="flex items-center gap-4">
+								<div class="w-20 h-20 rounded-xl bg-gradient-to-br from-brand-100 to-brand-50 grid place-items-center text-brand-500"><svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg></div>
+								<div>
+									<div class="font-bold text-lg">Complete your setup</div>
+									<div class="text-gray-500">Add the matching case for <span class="font-bold text-ink">₹499</span> <span class="line-through">₹799</span></div>
+									<span class="inline-block mt-1 text-xs font-bold text-brand-700 bg-brand-100 px-2 py-0.5 rounded-full">Save ₹300</span>
+								</div>
+							</div>
+							<button class="mt-4 w-full rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-white font-semibold py-3">Add to my order — one click</button>
+							<p class="text-center text-xs text-gray-400 mt-2">🔒 Secure checkout — no need to re-enter your details</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- row 2 -->
+			<div class="grid lg:grid-cols-2 gap-10 items-center">
+				<div class="order-2 lg:order-1 reveal">
+					<div class="rounded-3xl text-white shadow-glow p-8 bg-gradient-to-br from-brand-500 to-brand-700">
+						<div class="text-xs uppercase tracking-widest opacity-80">Your exclusive reward</div>
+						<div class="text-4xl font-extrabold mt-2">15% OFF</div>
+						<div class="mt-4 inline-flex items-center gap-2 bg-white/15 border-2 border-dashed border-white/40 rounded-xl px-4 py-2 font-bold tracking-widest">THANKS-9F2A</div>
+						<div class="mt-5 grid grid-cols-4 gap-2 text-center">
+							<div class="bg-white/10 rounded-lg py-2"><div class="text-2xl font-extrabold">00</div><div class="text-[10px] uppercase opacity-70">days</div></div>
+							<div class="bg-white/10 rounded-lg py-2"><div class="text-2xl font-extrabold">23</div><div class="text-[10px] uppercase opacity-70">hrs</div></div>
+							<div class="bg-white/10 rounded-lg py-2"><div class="text-2xl font-extrabold">59</div><div class="text-[10px] uppercase opacity-70">min</div></div>
+							<div class="bg-white/10 rounded-lg py-2"><div class="text-2xl font-extrabold">58</div><div class="text-[10px] uppercase opacity-70">sec</div></div>
+						</div>
+					</div>
+				</div>
+				<div class="order-1 lg:order-2 reveal" data-delay="120">
+					<span class="badge">Money printer #2</span>
+					<h3 class="mt-4 text-2xl sm:text-3xl font-extrabold tracking-tight">Bring them back — with urgency that converts</h3>
+					<p class="mt-4 text-gray-600">A unique, expiring coupon plus a live countdown is the single most effective way to turn a one-time buyer into a repeat customer. Goldmine generates and tracks it automatically.</p>
+					<ul class="mt-5 space-y-3 text-gray-700">
+						<li class="check">Unique, single-use codes — no coupon abuse</li>
+						<li class="check">Percentage or fixed value, with min-spend rules</li>
+						<li class="check">Auto-emailed with the order confirmation</li>
+						<li class="check">Configurable expiry from 1 hour to 30 days</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<!-- WITHOUT vs WITH -->
+		<section class="bg-gray-50/70 border-y border-gray-100">
+			<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+				<div class="grid md:grid-cols-2 gap-6">
+					<div class="rounded-2xl bg-white border border-gray-200 p-7 reveal">
+						<div class="text-sm font-bold text-gray-400 uppercase tracking-wide">Without Goldmine</div>
+						<ul class="mt-5 space-y-3 text-gray-600">
+							<li class="cross">"Thanks, here's your order number." The end.</li>
+							<li class="cross">Zero extra revenue per order</li>
+							<li class="cross">No reviews, no referrals, no repeat-purchase nudge</li>
+							<li class="cross">You keep paying for traffic that converts once</li>
+						</ul>
+					</div>
+					<div class="rounded-2xl bg-white border-2 border-brand-300 p-7 shadow-glow reveal" data-delay="100">
+						<div class="text-sm font-bold text-brand-700 uppercase tracking-wide">With Goldmine</div>
+						<ul class="mt-5 space-y-3 text-gray-700">
+							<li class="check">Every order can upsell, refer, review and re-sell</li>
+							<li class="check">12–18% upsell conversion at peak trust</li>
+							<li class="check">A self-running referral &amp; repeat-purchase engine</li>
+							<li class="check">More revenue from the exact same traffic</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- PRICING -->
+		<section id="pricing" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+			<div class="text-center max-w-2xl mx-auto reveal">
+				<span class="badge">Simple, honest pricing</span>
+				<h2 class="mt-4 text-3xl sm:text-4xl font-extrabold tracking-tight">Try free. Upgrade once. Own it forever.</h2>
+				<p class="mt-4 text-gray-600">No subscriptions. No per-order fees. One payment, lifetime updates.</p>
+			</div>
+
+			<div class="mt-12 grid lg:grid-cols-2 gap-6 max-w-4xl mx-auto">
+				<!-- Trial -->
+				<div class="rounded-3xl border border-gray-200 bg-white p-8 reveal">
+					<div class="flex items-center justify-between">
+						<h3 class="text-xl font-extrabold">Free Trial</h3>
+						<span class="text-xs font-bold text-amber-600 bg-amber-100 px-2.5 py-1 rounded-full">24 hours</span>
+					</div>
+					<div class="mt-4 text-4xl font-extrabold">₹0</div>
+					<p class="text-gray-500 text-sm mt-1">Full features. Auto-removes after 24h.</p>
+					<button onclick="APG.openTrial()" class="btn-ghost w-full justify-center mt-6">Start free trial</button>
+					<ul class="mt-6 space-y-3 text-sm text-gray-700">
+						<li class="check">All 5 revenue modules</li>
+						<li class="check">Full analytics dashboard</li>
+						<li class="check">No credit card required</li>
+						<li class="check">Cleanly self-deletes when the trial ends</li>
+					</ul>
+				</div>
+
+				<!-- Pro -->
+				<div class="relative rounded-3xl border-2 border-brand-400 bg-white p-8 shadow-glow reveal" data-delay="100">
+					<span class="absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-bold text-white bg-gradient-to-r from-brand-500 to-brand-700 px-3 py-1 rounded-full">MOST POPULAR</span>
+					<div class="flex items-center justify-between">
+						<h3 class="text-xl font-extrabold">Goldmine Pro</h3>
+						<span class="text-xs font-bold text-brand-700 bg-brand-100 px-2.5 py-1 rounded-full">Lifetime</span>
+					</div>
+					<div class="mt-4 flex items-end gap-2">
+						<span class="text-4xl font-extrabold">₹<span id="price-display">2,499</span></span>
+						<span class="text-gray-400 line-through mb-1">₹4,999</span>
+					</div>
+					<p class="text-gray-500 text-sm mt-1">One-time payment • Lifetime updates</p>
+					<button onclick="APG.openBuy()" class="btn-primary w-full justify-center mt-6">Buy now &amp; download instantly</button>
+					<ul class="mt-6 space-y-3 text-sm text-gray-700">
+						<li class="check">Everything in the trial, forever</li>
+						<li class="check">Unlimited upsell offers</li>
+						<li class="check">Priority email support</li>
+						<li class="check">Instant download + emailed copy</li>
+						<li class="check">HPOS &amp; latest WooCommerce compatible</li>
+					</ul>
+					<p class="text-center text-xs text-gray-400 mt-4">🔒 Secured by Razorpay — UPI, cards, netbanking &amp; wallets</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- TESTIMONIALS -->
+		<section class="bg-ink text-white">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+				<div class="text-center max-w-2xl mx-auto reveal">
+					<h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Store owners love the extra revenue</h2>
+				</div>
+				<div class="mt-12 grid md:grid-cols-3 gap-6">
+					<figure class="rounded-2xl bg-white/5 border border-white/10 p-6 reveal">
+						<div class="text-amber-400 mb-3">★★★★★</div>
+						<blockquote class="text-gray-200">"Added ₹42,000/month from a page I was completely wasting. The one-click upsell is a money printer."</blockquote>
+						<figcaption class="mt-4 text-sm text-gray-400">— Priya, fashion store</figcaption>
+					</figure>
+					<figure class="rounded-2xl bg-white/5 border border-white/10 p-6 reveal" data-delay="100">
+						<div class="text-amber-400 mb-3">★★★★★</div>
+						<blockquote class="text-gray-200">"The referral program basically runs itself now. Setup took two minutes with the wizard."</blockquote>
+						<figcaption class="mt-4 text-sm text-gray-400">— Arjun, electronics</figcaption>
+					</figure>
+					<figure class="rounded-2xl bg-white/5 border border-white/10 p-6 reveal" data-delay="200">
+						<div class="text-amber-400 mb-3">★★★★★</div>
+						<blockquote class="text-gray-200">"Repeat purchases jumped after I turned on the discount timer. The countdown really works."</blockquote>
+						<figcaption class="mt-4 text-sm text-gray-400">— Meera, wellness brand</figcaption>
+					</figure>
+				</div>
+			</div>
+		</section>
+
+		<!-- FAQ -->
+		<section id="faq" class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+			<div class="text-center reveal">
+				<span class="badge">Questions, answered</span>
+				<h2 class="mt-4 text-3xl sm:text-4xl font-extrabold tracking-tight">Frequently asked</h2>
+			</div>
+			<div class="mt-10 divide-y divide-gray-100 border border-gray-100 rounded-2xl overflow-hidden" id="faq-list">
+				<div class="faq-item">
+					<button class="faq-q">How does the 24-hour trial work?<span class="faq-ic">+</span></button>
+					<div class="faq-a"><p>Download the trial ZIP and install it like any plugin. You get full access to every feature for 24 hours. When the trial ends, the plugin automatically deactivates and cleanly deletes itself — no leftover data or manual cleanup. Upgrade to Pro anytime to keep everything.</p></div>
+				</div>
+				<div class="faq-item">
+					<button class="faq-q">How do I get the Pro version after paying?<span class="faq-ic">+</span></button>
+					<div class="faq-a"><p>Payment is handled securely by Razorpay (UPI, cards, netbanking, wallets). The instant your payment is verified, your Pro ZIP downloads automatically and a copy of the download link is emailed to you.</p></div>
+				</div>
+				<div class="faq-item">
+					<button class="faq-q">Is the one-click upsell really one click?<span class="faq-ic">+</span></button>
+					<div class="faq-a"><p>If the customer paid with a saved method on a gateway that supports off-session charging, it's truly one click. For every other gateway, they're taken to a fully pre-filled one-step pay page — no re-entering address or product details.</p></div>
+				</div>
+				<div class="faq-item">
+					<button class="faq-q">Will it work with my payment gateway and theme?<span class="faq-ic">+</span></button>
+					<div class="faq-a"><p>Yes. Goldmine works with the standard WooCommerce thank-you page, supports HPOS (custom order tables), and is compatible with classic and block checkout. The pre-filled pay page works with every WooCommerce gateway.</p></div>
+				</div>
+				<div class="faq-item">
+					<button class="faq-q">Do I need coding skills?<span class="faq-ic">+</span></button>
+					<div class="faq-a"><p>None. A guided onboarding wizard sets you up in about two minutes, and every module is toggled and styled from a premium dashboard.</p></div>
+				</div>
+				<div class="faq-item">
+					<button class="faq-q">Is it a subscription?<span class="faq-ic">+</span></button>
+					<div class="faq-a"><p>No. Goldmine Pro is a one-time payment with a lifetime license and updates. No recurring fees, no per-order charges.</p></div>
+				</div>
+			</div>
+		</section>
+
+		<!-- FINAL CTA -->
+		<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+			<div class="rounded-3xl bg-gradient-to-br from-brand-500 to-brand-700 text-white p-10 lg:p-16 text-center shadow-glow reveal">
+				<h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Stop wasting your highest-trust moment</h2>
+				<p class="mt-4 text-brand-50 max-w-2xl mx-auto">Install Goldmine and turn every "Order Received" page into more revenue, more reviews and more referrals — starting with your very next order.</p>
+				<div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+					<button onclick="APG.openBuy()" class="bg-white text-brand-700 font-bold rounded-xl px-7 py-4 hover:bg-brand-50 transition">Get Goldmine Pro</button>
+					<button onclick="APG.openTrial()" class="bg-white/15 border border-white/30 text-white font-bold rounded-xl px-7 py-4 hover:bg-white/25 transition">Start free trial</button>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<!-- FOOTER -->
+	<footer class="border-t border-gray-100">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+			<div class="grid md:grid-cols-4 gap-8">
+				<div class="md:col-span-2">
+					<div class="flex items-center gap-2.5 font-extrabold text-lg">
+						<span class="grid place-items-center w-9 h-9 rounded-xl text-white bg-gradient-to-br from-brand-500 to-brand-700"><svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m12 2 2.9 6.26L21.5 9l-5 4.6L18 21l-6-3.3L6 21l1.5-7.4-5-4.6 6.6-.74z"/></svg></span>
+						After-Purchase Goldmine
+					</div>
+					<p class="mt-4 text-gray-500 text-sm max-w-sm">The premium WooCommerce plugin that turns your thank-you page into a revenue engine.</p>
+				</div>
+				<div>
+					<div class="font-bold text-sm mb-3">Product</div>
+					<ul class="space-y-2 text-sm text-gray-500">
+						<li><a href="#features" class="hover:text-brand-700">Features</a></li>
+						<li><a href="#pricing" class="hover:text-brand-700">Pricing</a></li>
+						<li><a href="#faq" class="hover:text-brand-700">FAQ</a></li>
+					</ul>
+				</div>
+				<div>
+					<div class="font-bold text-sm mb-3">Support</div>
+					<ul class="space-y-2 text-sm text-gray-500">
+						<li><a href="mailto:itsdevsarun@gmail.com" class="hover:text-brand-700">itsdevsarun@gmail.com</a></li>
+						<li><a href="https://wa.me/917654758443" target="_blank" rel="noopener" class="hover:text-brand-700">WhatsApp support</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="mt-10 pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-gray-400">
+				<span>© <span id="year"></span> After-Purchase Goldmine. All rights reserved.</span>
+				<span>Made for WooCommerce stores that want to grow.</span>
+			</div>
+		</div>
+	</footer>
+
+	<!-- WHATSAPP FLOATING WIDGET -->
+	<div class="fixed right-4 sm:right-6 bottom-4 sm:bottom-6 z-50">
+		<button id="wa-toggle" aria-label="Chat on WhatsApp" class="group relative grid place-items-center w-14 h-14 rounded-full bg-[#25D366] text-white shadow-glow hover:scale-105 transition">
+			<span class="absolute inline-flex h-full w-full rounded-full bg-[#25D366] opacity-60 animate-ping"></span>
+			<svg class="relative w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2a9.9 9.9 0 0 0-8.4 15.18L2 22l4.95-1.3A9.9 9.9 0 1 0 12.04 2Zm5.8 14.06c-.24.68-1.4 1.3-1.93 1.34-.5.05-1.12.24-3.66-.78-3.09-1.25-5.06-4.42-5.21-4.62-.15-.2-1.25-1.66-1.25-3.17 0-1.5.79-2.24 1.07-2.55.28-.3.61-.38.81-.38.2 0 .41 0 .58.01.19.01.44-.07.69.53.24.6.83 2.07.9 2.22.07.15.12.32.02.52-.1.2-.15.32-.3.5-.15.17-.31.39-.45.52-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.47.13.64-.08.17-.2.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.73.82 2.02.97.3.15.5.22.57.35.07.13.07.72-.17 1.4Z"/></svg>
+		</button>
+
+		<!-- WhatsApp panel -->
+		<div id="wa-panel" class="hidden absolute bottom-16 right-0 w-[320px] max-w-[calc(100vw-2rem)] rounded-2xl bg-white border border-gray-200 shadow-2xl overflow-hidden">
+			<div class="bg-[#075E54] text-white p-4">
+				<div class="flex items-center gap-3">
+					<div class="grid place-items-center w-10 h-10 rounded-full bg-white/15">
+						<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2a9.9 9.9 0 0 0-8.4 15.18L2 22l4.95-1.3A9.9 9.9 0 1 0 12.04 2Z"/></svg>
+					</div>
+					<div>
+						<div class="font-bold leading-tight">Chat with us</div>
+						<div class="text-xs text-white/70">Typically replies in minutes</div>
+					</div>
+				</div>
+			</div>
+			<form id="wa-form" class="p-4 space-y-3">
+				<div>
+					<label class="block text-xs font-semibold text-gray-600 mb-1">Your name</label>
+					<input type="text" name="name" required class="wa-input" placeholder="e.g. Rahul Sharma" />
+				</div>
+				<div>
+					<label class="block text-xs font-semibold text-gray-600 mb-1">Mobile number</label>
+					<input type="tel" name="mobile" required pattern="[0-9+\-\s]{8,15}" class="wa-input" placeholder="e.g. 98765 43210" />
+				</div>
+				<div>
+					<label class="block text-xs font-semibold text-gray-600 mb-1">How can we help?</label>
+					<textarea name="message" rows="3" required class="wa-input" placeholder="Tell us what you need…"></textarea>
+				</div>
+				<button type="submit" class="w-full rounded-xl bg-[#25D366] hover:bg-[#1ebe5d] text-white font-semibold py-3 transition inline-flex items-center justify-center gap-2">
+					<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2a9.9 9.9 0 0 0-8.4 15.18L2 22l4.95-1.3A9.9 9.9 0 1 0 12.04 2Z"/></svg>
+					Send on WhatsApp
+				</button>
+			</form>
+		</div>
+	</div>
+
+	<!-- LEAD MODAL (trial / buy) -->
+	<div id="lead-modal" class="hidden fixed inset-0 z-[60] flex items-center justify-center p-4">
+		<div class="absolute inset-0 bg-ink/60 backdrop-blur-sm" data-close></div>
+		<div class="relative w-full max-w-md rounded-3xl bg-white shadow-2xl overflow-hidden">
+			<div class="p-6 border-b border-gray-100 flex items-center justify-between">
+				<h3 id="lead-title" class="text-lg font-extrabold">Start your free trial</h3>
+				<button data-close class="grid place-items-center w-9 h-9 rounded-lg border border-gray-200 text-gray-500 hover:text-ink"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+			</div>
+			<form id="lead-form" class="p-6 space-y-4">
+				<p id="lead-sub" class="text-sm text-gray-500"></p>
+				<div>
+					<label class="block text-xs font-semibold text-gray-600 mb-1">Full name</label>
+					<input type="text" name="name" required class="lead-input" placeholder="Your name" />
+				</div>
+				<div>
+					<label class="block text-xs font-semibold text-gray-600 mb-1">Email</label>
+					<input type="email" name="email" required class="lead-input" placeholder="you@store.com" />
+				</div>
+				<div>
+					<label class="block text-xs font-semibold text-gray-600 mb-1">Mobile (for support)</label>
+					<input type="tel" name="contact" required class="lead-input" placeholder="98765 43210" />
+				</div>
+				<button type="submit" id="lead-submit" class="btn-primary w-full justify-center py-3.5">
+					<span class="lead-label">Download trial</span>
+					<span class="lead-spin hidden inline-block w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin"></span>
+				</button>
+				<p class="text-center text-[11px] text-gray-400">By continuing you agree to receive your download and product emails.</p>
+			</form>
+		</div>
+	</div>
+
+	<!-- TOAST -->
+	<div id="toast" class="hidden fixed left-1/2 -translate-x-1/2 bottom-6 z-[70] px-5 py-3 rounded-xl text-white font-semibold text-sm shadow-2xl"></div>
+
+	<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+	<script src="assets/js/app.js"></script>
+</body>
+</html>

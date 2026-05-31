@@ -31,6 +31,17 @@ define( 'APG_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 define( 'APG_MIN_PHP', '7.4' );
 define( 'APG_MIN_WC', '6.0' );
 
+// Trial build detection: drop an empty `trial.flag` file in the plugin root
+// to turn any copy of the plugin into a self-deleting 24-hour trial.
+if ( ! defined( 'APG_TRIAL' ) ) {
+	define( 'APG_TRIAL', file_exists( APG_PLUGIN_DIR . 'trial.flag' ) );
+}
+
+// Where trial users are sent to upgrade (edit to your landing page URL).
+if ( ! defined( 'APG_UPGRADE_URL' ) ) {
+	define( 'APG_UPGRADE_URL', 'https://your-landing-page.example' );
+}
+
 // ---------------------------------------------------------------------------
 // Autoloader.
 // ---------------------------------------------------------------------------
