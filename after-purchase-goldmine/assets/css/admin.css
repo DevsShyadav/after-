@@ -9,17 +9,19 @@
 .apg-app .notice { display: none; }
 
 .apg-app {
-	--apg-accent: #6366f1;
-	--apg-accent-rgb: 99, 102, 241;
-	--apg-bg: #f4f5fa;
+	--apg-accent: #ef4444;
+	--apg-accent-rgb: 239, 68, 68;
+	--apg-accent-strong: #dc2626;
+	--apg-bg: #fcf7f7;
 	--apg-surface: #ffffff;
-	--apg-surface-2: #fbfbfe;
-	--apg-border: #e7e8f0;
-	--apg-text: #11162a;
-	--apg-muted: #6b7488;
-	--apg-grid: rgba(120, 130, 150, 0.14);
-	--apg-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 12px 32px -16px rgba(16, 24, 40, 0.18);
-	--apg-danger: #e5484d;
+	--apg-surface-2: #fdf4f4;
+	--apg-border: #f2e6e6;
+	--apg-text: #1b1417;
+	--apg-muted: #8a7b7e;
+	--apg-grid: rgba(239, 68, 68, 0.10);
+	--apg-topbar: rgba(255, 255, 255, 0.85);
+	--apg-shadow: 0 1px 2px rgba(40, 16, 16, 0.04), 0 14px 34px -18px rgba(239, 68, 68, 0.20);
+	--apg-danger: #dc2626;
 	--apg-green: #16a34a;
 	--apg-radius: 16px;
 
@@ -40,13 +42,14 @@
 
 @media (prefers-color-scheme: dark) {
 	.apg-app {
-		--apg-bg: #0a0c14;
-		--apg-surface: #12151f;
-		--apg-surface-2: #161a26;
-		--apg-border: #232838;
-		--apg-text: #f1f3f9;
-		--apg-muted: #8b94a8;
-		--apg-grid: rgba(150, 160, 180, 0.12);
+		--apg-bg: #100a0b;
+		--apg-surface: #181012;
+		--apg-surface-2: #1f1416;
+		--apg-border: #2e2023;
+		--apg-text: #f6eef0;
+		--apg-muted: #a89498;
+		--apg-grid: rgba(239, 68, 68, 0.12);
+		--apg-topbar: rgba(24, 16, 18, 0.82);
 		--apg-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 18px 40px -20px rgba(0, 0, 0, 0.7);
 	}
 }
@@ -58,8 +61,11 @@
 	gap: 24px;
 	padding: 0 28px;
 	height: 64px;
-	background: var(--apg-surface);
+	background: var(--apg-topbar);
+	backdrop-filter: saturate(180%) blur(12px);
+	-webkit-backdrop-filter: saturate(180%) blur(12px);
 	border-bottom: 1px solid var(--apg-border);
+	box-shadow: 0 1px 0 rgba(239, 68, 68, 0.04);
 	position: sticky;
 	top: 32px;
 	z-index: 50;
@@ -189,6 +195,12 @@
 	border-radius: var(--apg-radius);
 	padding: 18px;
 	box-shadow: var(--apg-shadow);
+	transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.apg-stat:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 1px 2px rgba(40, 16, 16, 0.05), 0 22px 44px -22px rgba(239, 68, 68, 0.32);
 }
 
 .apg-stat__icon {
@@ -322,8 +334,8 @@ canvas { max-width: 100%; }
 
 .apg-btn--primary {
 	color: #fff;
-	background: linear-gradient(135deg, var(--apg-accent), rgba(var(--apg-accent-rgb), 0.82));
-	box-shadow: 0 10px 22px -12px rgba(var(--apg-accent-rgb), 0.9);
+	background: linear-gradient(135deg, var(--apg-accent), var(--apg-accent-strong));
+	box-shadow: 0 10px 22px -12px rgba(var(--apg-accent-rgb), 0.95);
 }
 
 .apg-btn--primary:hover { transform: translateY(-1px); }

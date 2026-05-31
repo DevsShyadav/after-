@@ -6,7 +6,7 @@ Tested up to: 6.7
 Requires PHP: 7.4
 WC requires at least: 6.0
 WC tested up to: 9.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -83,10 +83,18 @@ No. Assets load only on the thank-you page (frontend) and on plugin admin screen
 
 == Changelog ==
 
+= 1.0.1 =
+* New premium white + light-red UI theme across the admin and thank-you page.
+* Fixed: the Welcome/onboarding screen could show "Sorry, you are not allowed to access this page" — the hidden page is now kept accessible and hidden via CSS instead of remove_submenu_page().
+* Existing installs using the default accent are migrated to the new red automatically.
+
 = 1.0.0 =
 * Initial release: one-click upsell, discount timer, referral program, review request, social share, analytics dashboard, onboarding wizard, HPOS support.
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Refreshed premium UI and an onboarding access fix. Safe in-place upgrade.
 
 = 1.0.0 =
 First public release.

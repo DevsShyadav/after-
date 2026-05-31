@@ -4,17 +4,18 @@
  */
 
 .apg-goldmine {
-	--apg-accent: #6366f1;
-	--apg-accent-rgb: 99, 102, 241;
+	--apg-accent: #ef4444;
+	--apg-accent-rgb: 239, 68, 68;
+	--apg-accent-strong: #dc2626;
 	--apg-radius: 20px;
-	--apg-bg: #f7f8fb;
+	--apg-bg: #fdf7f7;
 	--apg-card: #ffffff;
-	--apg-card-border: rgba(15, 23, 42, 0.08);
-	--apg-text: #0f172a;
-	--apg-muted: #64748b;
-	--apg-shadow: 0 18px 48px -24px rgba(15, 23, 42, 0.35);
+	--apg-card-border: rgba(190, 60, 60, 0.12);
+	--apg-text: #1b1417;
+	--apg-muted: #80727a;
+	--apg-shadow: 0 18px 48px -24px rgba(190, 40, 40, 0.26);
 	--apg-success: #16a34a;
-	--apg-ink-soft: rgba(15, 23, 42, 0.04);
+	--apg-ink-soft: rgba(239, 68, 68, 0.05);
 
 	box-sizing: border-box;
 	margin: 40px auto;
@@ -370,7 +371,7 @@
 
 /* Discount timer */
 .apg-card--timer {
-	background: linear-gradient(135deg, #0f172a, #1e293b);
+	background: linear-gradient(135deg, var(--apg-accent), var(--apg-accent-strong));
 	color: #fff;
 	border-color: transparent;
 }
@@ -397,8 +398,9 @@
 	letter-spacing: -0.02em;
 	padding: 16px 20px;
 	border-radius: 16px;
-	background: linear-gradient(135deg, var(--apg-accent), rgba(var(--apg-accent-rgb), 0.7));
-	box-shadow: 0 16px 30px -14px rgba(var(--apg-accent-rgb), 0.9);
+	background: #fff;
+	color: var(--apg-accent-strong);
+	box-shadow: 0 16px 30px -16px rgba(0, 0, 0, 0.35);
 	white-space: nowrap;
 }
 

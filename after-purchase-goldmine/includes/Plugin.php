@@ -146,6 +146,16 @@ final class Plugin {
 		}
 
 		Install\Schema::install();
+
+		// 1.0.1: migrate the legacy indigo accent to the new red default,
+		// but only when the merchant has not picked their own color.
+		$settings = get_option( 'apg_settings' );
+		if ( is_array( $settings ) && isset( $settings['general']['accent'] ) && '#6366f1' === $settings['general']['accent'] ) {
+			$settings['general']['accent'] = '#ef4444';
+			update_option( 'apg_settings', $settings );
+			Support\Options::flush_cache();
+		}
+
 		Support\Options::seed_defaults();
 		update_option( 'apg_version', APG_VERSION );
 	}

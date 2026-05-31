@@ -133,7 +133,7 @@ final class Assets {
 	 * @return string
 	 */
 	private function inline_theme_css() {
-		$accent = Options::get( 'general', 'accent', '#6366f1' );
+		$accent = Options::get( 'general', 'accent', '#ef4444' );
 		$radius = (int) Options::get( 'general', 'card_radius', 20 );
 		$glass  = Options::get( 'general', 'glass', true ) ? '1' : '0';
 		$rgb    = Helpers::hex_to_rgb( $accent );

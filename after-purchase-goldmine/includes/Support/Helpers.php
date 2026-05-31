@@ -170,7 +170,7 @@ final class Helpers {
 		}
 
 		if ( 6 !== strlen( $hex ) || ! ctype_xdigit( $hex ) ) {
-			return '99, 102, 241';
+			return '239, 68, 68';
 		}
 
 		return hexdec( substr( $hex, 0, 2 ) ) . ', ' . hexdec( substr( $hex, 2, 2 ) ) . ', ' . hexdec( substr( $hex, 4, 2 ) );

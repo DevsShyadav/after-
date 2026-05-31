@@ -60,6 +60,7 @@ final class Admin {
 		add_action( 'admin_menu', array( $this, 'register_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
 		add_action( 'admin_init', array( $this, 'maybe_redirect_onboarding' ) );
+		add_action( 'admin_head', array( $this, 'hide_onboarding_menu_item' ) );
 	}
 
 	/**
@@ -86,9 +87,20 @@ final class Admin {
 		$this->hooks['referrals'] = add_submenu_page( self::SLUG, __( 'Referrals', 'after-purchase-goldmine' ), __( 'Referrals', 'after-purchase-goldmine' ), $cap, 'apg-referrals', array( $this, 'render_referrals' ) );
 		$this->hooks['settings']  = add_submenu_page( self::SLUG, __( 'Settings', 'after-purchase-goldmine' ), __( 'Settings', 'after-purchase-goldmine' ), $cap, 'apg-settings', array( $this, 'render_settings' ) );
 
-		// Onboarding is accessible but hidden from the menu.
+		// Onboarding stays registered as a real submenu so WordPress can
+		// resolve its parent and pass the capability check. We hide its menu
+		// item visually via CSS in hide_onboarding_menu_item() instead of
+		// remove_submenu_page(), which would break access ("not allowed").
 		$this->hooks['onboarding'] = add_submenu_page( self::SLUG, __( 'Welcome', 'after-purchase-goldmine' ), __( 'Welcome', 'after-purchase-goldmine' ), $cap, 'apg-onboarding', array( $this, 'render_onboarding' ) );
-		remove_submenu_page( self::SLUG, 'apg-onboarding' );
+	}
+
+	/**
+	 * Hide the onboarding submenu item from the admin menu (kept accessible).
+	 *
+	 * @return void
+	 */
+	public function hide_onboarding_menu_item() {
+		echo '<style>#adminmenu a[href$="page=apg-onboarding"]{display:none !important;}</style>';
 	}
 
 	/**
@@ -200,7 +212,7 @@ final class Admin {
 	 * @return string
 	 */
 	private function inline_theme_css() {
-		$accent = Options::get( 'general', 'accent', '#6366f1' );
+		$accent = Options::get( 'general', 'accent', '#ef4444' );
 		$rgb    = \APG\Support\Helpers::hex_to_rgb( $accent );
 
 		return sprintf( ':root{--apg-accent:%1$s;--apg-accent-rgb:%2$s;}', esc_attr( $accent ), esc_attr( $rgb ) );
